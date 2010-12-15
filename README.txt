@@ -1,0 +1,3 @@
+- Compilation and installation instructions are described in the 'INSTALL.txt' file.
+- Documentation on the use of STRIPPER is available in the doc/ directory.
+- Example scaffold definitions are available in the examples/ directory.
