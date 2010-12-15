@@ -38,6 +38,7 @@ GNU General Public License for more details.
 
 class Oprea: virtual public Scaffold
 {
+protected:      
    	public:
    
       	Oprea(void);

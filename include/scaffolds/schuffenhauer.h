@@ -42,25 +42,24 @@ class Schuffenhauer: virtual public Scaffold
    	protected:
    
       	unsigned int _ringsToBeRetained;
-   
-      	unsigned int RemoveSidechains(OpenBabel::OBMol*);
-      	OpenBabel::OBMol RemoveRing(OpenBabel::OBMol&, std::vector<OpenBabel::OBRing*>&, unsigned int);
-      	unsigned int CalculateAcyclicBonds(OpenBabel::OBMol&);
-      	int CalculateDelta(OpenBabel::OBMol&);
-      	unsigned int CalculateHeteroAtoms(OpenBabel::OBMol&, OpenBabel::OBRing*, int);
-      	bool HasLinkerToHeteroAtom(OpenBabel::OBMol&, OpenBabel::OBRing*);
+      	virtual unsigned int RemoveSidechains(OpenBabel::OBMol*);
+      	virtual OpenBabel::OBMol RemoveRing(OpenBabel::OBMol&, std::vector<OpenBabel::OBRing*>&, unsigned int);
+      	virtual unsigned int CalculateAcyclicBonds(OpenBabel::OBMol&);
+      	virtual int CalculateDelta(OpenBabel::OBMol&);
+      	virtual unsigned int CalculateHeteroAtoms(OpenBabel::OBMol&, OpenBabel::OBRing*, int);
+      	virtual bool HasLinkerToHeteroAtom(OpenBabel::OBMol&, OpenBabel::OBRing*);
       
-      	OpenBabel::OBMol Rule_1(OpenBabel::OBMol&);
-      	OpenBabel::OBMol Rule_2(OpenBabel::OBMol&);
-      	OpenBabel::OBMol Rule_3(OpenBabel::OBMol&);
-      	OpenBabel::OBMol Rule_4(OpenBabel::OBMol&);
-      	OpenBabel::OBMol Rule_6(OpenBabel::OBMol&);
-      	OpenBabel::OBMol Rule_7(OpenBabel::OBMol&);
-      	OpenBabel::OBMol Rule_8(OpenBabel::OBMol&);
-      	OpenBabel::OBMol Rule_10(OpenBabel::OBMol&);
-      	OpenBabel::OBMol Rule_11(OpenBabel::OBMol&);
-      	OpenBabel::OBMol Rule_12(OpenBabel::OBMol&);
-      	OpenBabel::OBMol Rule_13(OpenBabel::OBMol&);
+      	virtual OpenBabel::OBMol Rule_1(OpenBabel::OBMol&);
+      	virtual OpenBabel::OBMol Rule_2(OpenBabel::OBMol&);
+      	virtual OpenBabel::OBMol Rule_3(OpenBabel::OBMol&);
+      	virtual OpenBabel::OBMol Rule_4(OpenBabel::OBMol&);
+      	virtual OpenBabel::OBMol Rule_6(OpenBabel::OBMol&);
+      	virtual OpenBabel::OBMol Rule_7(OpenBabel::OBMol&);
+      	virtual OpenBabel::OBMol Rule_8(OpenBabel::OBMol&);
+      	virtual OpenBabel::OBMol Rule_10(OpenBabel::OBMol&);
+      	virtual OpenBabel::OBMol Rule_11(OpenBabel::OBMol&);
+      	virtual OpenBabel::OBMol Rule_12(OpenBabel::OBMol&);
+      	virtual OpenBabel::OBMol Rule_13(OpenBabel::OBMol&);
    
    	public:
    

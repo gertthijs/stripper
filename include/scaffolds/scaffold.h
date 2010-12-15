@@ -42,7 +42,7 @@ class Scaffold
       	std::string _smiles;
 		OpenBabel::OBConversion _mol2can;
     
-    	virtual bool IsEndStanding(OpenBabel::OBAtom*);
+    	virtual bool IsEndStanding(OpenBabel::OBAtom*, bool, bool);
       
    	public:
    

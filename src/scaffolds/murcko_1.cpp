@@ -54,7 +54,7 @@ Murcko_1::operator=(const Murcko_1& s)
 	}
 	return *this;
 }
-   
+
 
 
 bool
@@ -63,19 +63,15 @@ Murcko_1::CalculateScaffold(const OpenBabel::OBMol& mol, Options* o)
 	OpenBabel::OBMol m(mol);
 	OpenBabel::OBAtom* atom;
 	std::vector<OpenBabel::OBAtom*>::iterator avi;
-	OpenBabel::OBBond* bond;
-	std::vector<OpenBabel::OBBond*>::iterator bvi;
-	bool removed(true);
+ 	bool removed(true);
 	while (removed)
 	{
 		removed = false;
 		for (atom = m.BeginAtom(avi); atom; atom = m.NextAtom(avi))
 		{
-			if (atom->GetValence() < 2)
+			if (IsEndStanding(atom, false, false))
 			{
-				m.BeginModify();
 				m.DeleteAtom(atom);
-				m.EndModify();
 				removed = true;
 				break;
 			}
@@ -89,6 +85,8 @@ Murcko_1::CalculateScaffold(const OpenBabel::OBMol& mol, Options* o)
 		atom->SetAtomicNum(6);
 		atom->SetFormalCharge(0);
 	}
+   	OpenBabel::OBBond* bond;
+	std::vector<OpenBabel::OBBond*>::iterator bvi;
 	for (bond = m.BeginBond(bvi); bond; bond = m.NextBond(bvi))
 	{
 		bond->SetBondOrder(1);

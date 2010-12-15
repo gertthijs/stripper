@@ -78,52 +78,32 @@ Scaffold::PrintScaffold(void)
 
 
 bool
-Scaffold::IsEndStanding(OpenBabel::OBAtom* atom)
+Scaffold::IsEndStanding(OpenBabel::OBAtom* atom, bool keepExocyclicDB = false, bool keepExolinkerDB = false)
 {
-	bool endStanding(false);
-	if ((atom->GetValence() > 1) || 
-		atom->IsInRing())
+	if (atom->IsInRing())
 	{
-		endStanding = false;
+		return false;
 	}
-   	else
+
 	if (atom->GetValence() == 0)
 	{
-		endStanding = true;
+		return true;
 	}
-   	else
+
+	if (atom->GetValence() == 1)
    	{
-		// Valence == 1
-		OpenBabel::OBBondIterator bi;
-		OpenBabel::OBBond* bond(atom->BeginBond(bi));
-		if (bond->GetBondOrder() == 2)
+		if (keepExocyclicDB)
 		{
-			OpenBabel::OBAtom* nbrAtom(bond->GetNbrAtom(atom));
-			OpenBabel::OBBondIterator bi2;
-			OpenBabel::OBAtom* a;
-			unsigned int nconnect(0);
-			for (a = nbrAtom->BeginNbrAtom(bi2); a; a = nbrAtom->NextNbrAtom(bi2))
-			{
-				if (a->GetValence() > 1) { ++nconnect; }
-			}
- 			if (nconnect == 0)
-			{ 
-				endStanding = true;
-			}
-         	else
-			if (nconnect == 1)
-			{
-				endStanding = true;
-			}
-			else
-			{
-				endStanding = false;
-			}
+			return !(atom->MatchesSMARTS("[D1]=[R]"));
 		}
-		else
-		{ 
-			endStanding = true;
+		
+		if (keepExolinkerDB)   
+		{
+			return !(atom->MatchesSMARTS("[D1]=[D3,D4]"));
 		}
-	}
-	return endStanding;
+		
+		return true;
+	}  
+	
+	return false;
 }

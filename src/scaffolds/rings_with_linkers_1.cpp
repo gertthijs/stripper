@@ -54,7 +54,7 @@ Rings_With_Linkers_1::operator=(const Rings_With_Linkers_1& s)
    	}
    	return *this;
 }
-   
+
 
 
 bool
@@ -69,7 +69,7 @@ Rings_With_Linkers_1::CalculateScaffold(const OpenBabel::OBMol& mol, Options* o)
       	removed = false;
       	for (atom = m.BeginAtom(avi); atom; atom = m.NextAtom(avi))
       	{
-         	if (atom->GetValence() < 2)
+         	if (IsEndStanding(atom, false, false))
          	{
             	m.DeleteAtom(atom);
             	removed = true;

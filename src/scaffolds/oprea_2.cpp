@@ -65,9 +65,8 @@ Oprea_2::CalculateScaffold(const OpenBabel::OBMol& mol, Options* o)
    	// Tag all HBD
    	std::vector<bool> hbd(m.NumAtoms() + 1);
    	for (OpenBabel::OBMolAtomIter atom(m); atom; ++atom)
-   	{
-      	if ((atom->IsNitrogen() || atom->IsOxygen()) &&             // Nitrogen or oxygen
-        	(atom->GetImplicitValence() - atom->GetHvyValence()))   // At least one H
+   	{    
+		if (atom->MatchesSMARTS("[NH,NH2,NH3,OH,nH]"))
       	{
          	hbd[atom->GetIdx()] = true;
       	}
@@ -80,27 +79,26 @@ Oprea_2::CalculateScaffold(const OpenBabel::OBMol& mol, Options* o)
    	// Tag all HBA
    	std::vector<bool> hba(m.NumAtoms() + 1);
    	for (OpenBabel::OBMolAtomIter atom(m); atom; ++atom)
-   	{
-      	if (atom->IsNitrogen() &&              	// Nitrogen
-         	!atom->IsAromatic() &&              // Aliphatic
-         	!atom->IsAmideNitrogen() &&         // No amide N
-         	((atom->GetImplicitValence() - atom->GetHvyValence()) == 0) &&    // No H
-         	(atom->GetFormalCharge() <= 0))     // No + charge
+   	{   
+ 		if (!atom->IsAmideNitrogen() &&        // No amide nitrogen
+			!atom->IsAromatic() &&             // Not aromatic
+			(atom->GetFormalCharge() <= 0) &&    // No + charge
+			atom->MatchesSMARTS("[NH0]"))        // No hydrogens
       	{
          	hba[atom->GetIdx()] = true;
       	}
       	else
 		if (atom->IsNitrogen() &&              // Nitrogen
           	atom->IsAromatic() &&              // Aromatic
-         	((atom->GetImplicitValence() - atom->GetHvyValence()) == 0) &&    // No H
-         	(atom->GetHvyValence() <= 2) &&     // Maximal two non-H atoms connected
-         	(atom->GetFormalCharge() <= 0))     // No + charge
+			atom->MatchesSMARTS("[NH0]") && 	   // No hydrogens
+         	(atom->GetHvyValence() <= 2) &&    // Maximal two non-H atoms connected
+         	(atom->GetFormalCharge() <= 0))    // No + charge
       	{
          	hba[atom->GetIdx()] = true;
       	}
       	else
       	if (atom->IsOxygen() &&                // Oxygen
-         	(atom->GetFormalCharge() <= 0))     // No + charge
+         	(atom->GetFormalCharge() <= 0))    // No + charge
       	{
          	hba[atom->GetIdx()] = true;
      	}
@@ -111,39 +109,18 @@ Oprea_2::CalculateScaffold(const OpenBabel::OBMol& mol, Options* o)
    	}
    
    	// Mark the C(=O) or S(=O) also as HBA
-   	OpenBabel::OBAtom* nbrAtom[2];
-   	for(OpenBabel::OBMolBondIter bond(m); bond; ++bond)
-   	{
-      	if (bond->GetBondOrder() == 2)
-      	{
-         	nbrAtom[0] = bond->GetBeginAtom();
-         	nbrAtom[1] = bond->GetEndAtom();
-         	if ((nbrAtom[0]->GetAtomicNum() == 6) &&
-				(nbrAtom[1]->GetAtomicNum() == 8))
-         	{
-            	hba[nbrAtom[0]->GetIdx()] = true;
-            	continue;
-         	}
-         	if ((nbrAtom[0]->GetAtomicNum() == 8) &&
-				(nbrAtom[1]->GetAtomicNum() == 6))
-         	{
-            	hba[nbrAtom[1]->GetIdx()] = true;
-            	continue;
-         	}
-         	if ((nbrAtom[0]->GetAtomicNum() == 16) &&
-				(nbrAtom[1]->GetAtomicNum() == 8))
-         	{
-            	hba[nbrAtom[0]->GetIdx()] = true;
-            	continue;
-         	}
-         	if ((nbrAtom[0]->GetAtomicNum() == 8) &
- 				(nbrAtom[1]->GetAtomicNum() == 16))
-         	{
-            	hba[nbrAtom[1]->GetIdx()] = true;
-            	continue;
-         	}
-      	}
-   	}
+   	for (OpenBabel::OBMolAtomIter atom(m); atom; ++atom)
+   	{   
+		if (atom->MatchesSMARTS("C=O"))
+		{
+         	hba[atom->GetIdx()] = true;
+		}
+		else
+		if (atom->MatchesSMARTS("S=O"))
+		{
+         	hba[atom->GetIdx()] = true;
+		} 
+	}
 
    	// Make all atoms as neutral C, N (HBD), or O (HBA)
    	m.BeginModify();
@@ -178,18 +155,16 @@ Oprea_2::CalculateScaffold(const OpenBabel::OBMol& mol, Options* o)
       	removed = false;
       	for (atom = m.BeginAtom(avi); atom; atom = m.NextAtom(avi))
       	{
-         	if (atom->GetValence() < 2)
+         	if (IsEndStanding(atom, false, false))
          	{
-		      	m.BeginModify();
 	         	m.DeleteAtom(atom);
-		      	m.EndModify();
             	removed = true;
 				break;
          	}
       	}
    	}
    
-   	// Make all bond orders equal to 1
+   	// Set all bond orders equal to 1
    	m.BeginModify();
    	for (bond = m.BeginBond(bvi); bond; bond = m.NextBond(bvi))
    	{
@@ -198,7 +173,8 @@ Oprea_2::CalculateScaffold(const OpenBabel::OBMol& mol, Options* o)
    	m.EndModify();
 
    	// Transform all neighbouring linker atoms into a single bond
-   	removed = true;
+   	removed = true; 
+	OpenBabel::OBAtom* nbrAtom[2];
    	while (removed)
    	{
 		removed = false;

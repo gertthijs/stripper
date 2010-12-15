@@ -37,7 +37,7 @@ GNU General Public License for more details.
 
 
 class Rings_With_Linkers_1: virtual public Scaffold
-{
+{     
    	public:
    
       	Rings_With_Linkers_1(void);

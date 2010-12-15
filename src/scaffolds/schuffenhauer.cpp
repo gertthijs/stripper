@@ -73,11 +73,9 @@ Schuffenhauer::RemoveSidechains(OpenBabel::OBMol* mol)
       	removed = false;
       	for (atom = mol->BeginAtom(avi); atom; atom = mol->NextAtom(avi))
       	{
-         	if (IsEndStanding(atom))
+         	if (IsEndStanding(atom, true, true))
          	{
-		      	mol->BeginModify();
  	         	mol->DeleteAtom(atom);
- 		      	mol->EndModify();
 				++numberRemoved;
            		removed = true;
 				break;

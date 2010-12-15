@@ -73,11 +73,9 @@ Oprea_1::CalculateScaffold(const OpenBabel::OBMol& mol, Options* o)
 		removed = false;
 		for (atom = m.BeginAtom(avi); atom; atom = m.NextAtom(avi))
 		{
-			if (atom->GetValence() < 2)
+			if (IsEndStanding(atom, false, false))
 			{
-		 		m.BeginModify();
 				m.DeleteAtom(atom);
-				m.EndModify();
 				removed = true;
 				break;
 			}
