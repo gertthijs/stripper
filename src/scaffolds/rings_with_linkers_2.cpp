@@ -69,7 +69,7 @@ Rings_With_Linkers_2::CalculateScaffold(const OpenBabel::OBMol& mol, Options* o)
        	removed = false;
       	for (atom = m.BeginAtom(avi); atom; atom = m.NextAtom(avi))
       	{
-         	if (IsEndStanding(atom, true, true) && atom->IsOxygen())
+         	if (IsEndStanding(atom, true, true))
          	{
 				m.DeleteAtom(atom);
 				removed = true;

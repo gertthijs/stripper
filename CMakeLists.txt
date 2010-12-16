@@ -84,21 +84,22 @@ set(CPACK_RESOURCE_FILE_INSTALL "${PROJECT_SOURCE_DIR}/INSTALL.txt")
 
 set(CPACK_SOURCE_GENERATOR "TGZ")  
 
-#list(APPEND CPACK_SOURCE_IGNORE_FILES "\\\\.DS_Store")
-#list(APPEND CPACK_SOURCE_IGNORE_FILES "\\\\.svn")
-#list(APPEND CPACK_SOURCE_IGNORE_FILES "CMakeCache\\\\.txt$")
-#list(APPEND CPACK_SOURCE_IGNORE_FILES ".*~")
-#list(APPEND CPACK_SOURCE_IGNORE_FILES "/CMakeFiles")
-#list(APPEND CPACK_SOURCE_IGNORE_FILES "CPackConfig\\\\.cmake$")
-#list(APPEND CPACK_SOURCE_IGNORE_FILES "CPackSourceConfig\\\\.cmake$")
-#list(APPEND CPACK_SOURCE_IGNORE_FILES "CTestTestfile\\\\.cmake$")
-#list(APPEND CPACK_SOURCE_IGNORE_FILES "Makefile$")
-#list(APPEND CPACK_SOURCE_IGNORE_FILES "/Testing")
-#list(APPEND CPACK_SOURCE_IGNORE_FILES "/_CPack_Packages")
-#list(APPEND CPACK_SOURCE_IGNORE_FILES "cmake_install\\\\.cmake$")
-#list(APPEND CPACK_SOURCE_IGNORE_FILES "/examples")
-#list(APPEND CPACK_SOURCE_IGNORE_FILES "install_manifest\\\\.txt$")
-#list(APPEND CPACK_SOURCE_IGNORE_FILES "stripper\\\\.tmproj$")
+set(CPACK_SOURCE_IGNORE_FILES 	".DS_Store";
+								".svn";
+								"CMakeCache.txt$";
+								".*~";
+								"/CMakeFiles";
+								"CPackConfig.cmake$";
+								"CPackSourceConfig.cmake$";
+								"CTestTestfile.cmake$";
+								"Makefile$";
+								"/Testing";
+								"/_CPack_Packages";
+								"cmake_install.cmake$";
+								"/examples";
+								"install_manifest.txt$";
+								"stripper.tmproj$"
+								)
 
 set(CPACK_SOURCE_PACKAGE_FILE_NAME "${PROJECT_NAME}-${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}")
 

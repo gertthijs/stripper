@@ -78,8 +78,8 @@ Scaffold::PrintScaffold(void)
 
 
 bool
-Scaffold::IsEndStanding(OpenBabel::OBAtom* atom, bool keepExocyclicDB = false, bool keepExolinkerDB = false)
-{
+Scaffold::IsEndStanding(OpenBabel::OBAtom* atom, bool keepExocyclicDB = false, bool onlyToOxygen = false)
+{  
 	if (atom->IsInRing())
 	{
 		return false;
@@ -91,15 +91,29 @@ Scaffold::IsEndStanding(OpenBabel::OBAtom* atom, bool keepExocyclicDB = false, b
 	}
 
 	if (atom->GetValence() == 1)
-   	{
-		if (keepExocyclicDB)
-		{
-			return !(atom->MatchesSMARTS("[D1]=[R]"));
-		}
+   	{   
+		if (keepExocyclicDB && onlyToOxygen)
+		{   
+			if (atom->MatchesSMARTS("[$(O=[R]),$(O=[#6;D3;v4]),$(O=[#16;D4;v6]=O),$(O=[#16;D3;v4])]"))
+			{
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+		}      
 		
-		if (keepExolinkerDB)   
-		{
-			return !(atom->MatchesSMARTS("[D1]=[D3,D4]"));
+		if (keepExocyclicDB && !onlyToOxygen)
+		{ 
+			if (atom->MatchesSMARTS("[$([D1]=[R]),$([D1]=[#6;D3;v4]),$(O=[R]),$(O=[#6;D3;v4]),$(O=[#16;D4;v6]=O),$(O=[#16;D3;v4])]"))
+			{
+				return false;
+			}
+			else
+			{
+				return true;
+			}
 		}
 		
 		return true;

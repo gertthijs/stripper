@@ -73,8 +73,8 @@ Schuffenhauer::RemoveSidechains(OpenBabel::OBMol* mol)
       	removed = false;
       	for (atom = mol->BeginAtom(avi); atom; atom = mol->NextAtom(avi))
       	{
-         	if (IsEndStanding(atom, true, true))
-         	{
+         	if (IsEndStanding(atom, true, false))
+         	{   
  	         	mol->DeleteAtom(atom);
 				++numberRemoved;
            		removed = true;
@@ -588,7 +588,14 @@ Schuffenhauer::Rule_3(OpenBabel::OBMol& oldMol)
 			remainingMols.push_back(validMols[i]);
 		}
 	}
-	if (!remainingMols.empty() &&
+/*	if (!remainingMols.empty() &&
+		(remainingMols.size() <= oldMolecules) &&
+		(remainingMols.size() <= (allrings.size() - _ringsToBeRetained)))
+	{
+ 		return remainingMols[0];
+	}
+*/
+ 	if ((remainingMols.size() == 1) &&
 		(remainingMols.size() <= oldMolecules) &&
 		(remainingMols.size() <= (allrings.size() - _ringsToBeRetained)))
 	{
@@ -608,24 +615,39 @@ Schuffenhauer::Rule_4(OpenBabel::OBMol& oldMol)
    	{
       	return oldMol;
    	}
-   
+
+	// Only focus on ringsystems with more than one ring
+   	std::vector<OpenBabel::OBAtom*>::iterator avi;
    	std::vector<OpenBabel::OBMol> mols;
-   	for (unsigned int i(0); i < allrings.size(); ++i)
-   	{
-      	mols.push_back(oldMol);
-   	}
-   
+   	OpenBabel::OBAtom* atom;
+	std::vector<int> fusedRings;
+	for (unsigned int i(0); i < allrings.size(); ++i)
+	{
+   		for (atom = oldMol.BeginAtom(avi); atom; atom = oldMol.NextAtom(avi))
+		{
+			if (allrings[i]->IsMember(atom) && (atom->MemberOfRingCount() > 1))
+			{
+				fusedRings.push_back(i);
+		     	mols.push_back(oldMol);
+				break;
+			}
+		}
+	}
+	if (fusedRings.empty())
+	{
+		return oldMol;
+	}
+  
    	std::vector<OpenBabel::OBMol> validMols;
-   	for (unsigned int i(0); i < allrings.size(); ++i)
+   	for (unsigned int i(0); i < fusedRings.size(); ++i)
    	{
-     	mols[i] = RemoveRing(mols[i], allrings, i);
+     	mols[i] = RemoveRing(mols[i], allrings, fusedRings[i]);
       	if (!mols[i].Empty())
       	{
          	validMols.push_back(mols[i]);
       	}
    	}
-	
-   	if (validMols.empty())
+    	if (validMols.empty())
    	{
 		return oldMol;
 	}
@@ -656,7 +678,7 @@ Schuffenhauer::Rule_4(OpenBabel::OBMol& oldMol)
 			remainingMols.push_back(validMols[i]);
 		}
 	}
-	if (!remainingMols.empty() &&
+	if ((remainingMols.size() == 1) &&
 		(remainingMols.size() <= oldMolecules) &&
 		(remainingMols.size() <= (allrings.size() - _ringsToBeRetained)))
 	{
@@ -702,13 +724,16 @@ Schuffenhauer::Rule_6(OpenBabel::OBMol& oldMol)
 	{
    		for (atom = oldMol.BeginAtom(avi); atom; atom = oldMol.NextAtom(avi))
 		{
-			if (allrings[rings[i]]->IsMember(atom) &&
-				(atom->MemberOfRingCount() > 1))
+			if (allrings[rings[i]]->IsMember(atom) && (atom->MemberOfRingCount() > 1))
 			{
-				fusedRings.push_back(i);
+				fusedRings.push_back(rings[i]);
 				break;
 			}
 		}
+	} 
+	if (fusedRings.empty())
+	{
+		return oldMol;
 	}
   
    	std::vector<OpenBabel::OBMol> validMols;
@@ -822,7 +847,6 @@ Schuffenhauer::Rule_8(OpenBabel::OBMol& oldMol)
       	score.push_back(sum);
       	mols.push_back(oldMol);
    	}
-
 	if (mols.empty())
 	{
 		return oldMol;
@@ -864,7 +888,7 @@ Schuffenhauer::Rule_8(OpenBabel::OBMol& oldMol)
 		}
 	}
       
-	if (!remainingMols.empty() &&
+	if ((remainingMols.size() == 1) &&
 		(remainingMols.size() <= oldMolecules) &&
 		(remainingMols.size() <= (allrings.size() - _ringsToBeRetained)))
 	{
@@ -934,7 +958,7 @@ Schuffenhauer::Rule_10(OpenBabel::OBMol& oldMol)
 		}
 	}
       
-	if (!remainingMols.empty() &&
+	if ((remainingMols.size() == 1) &&
 		(remainingMols.size() <= oldMolecules) &&
 		(remainingMols.size() <= (allrings.size() - _ringsToBeRetained)))
 	{
@@ -994,7 +1018,7 @@ Schuffenhauer::Rule_11(OpenBabel::OBMol& oldMol)
       	}
    
       	std::vector<OpenBabel::OBMol> validMols;
-      	for (unsigned int i(0); i < mols.size(); ++i)
+      	for (unsigned int i(0); i < aromaticRings.size(); ++i)
       	{
          	mols[i] = RemoveRing(mols[i], allrings, aromaticRings[i]);
          	if (!mols[i].Empty())
