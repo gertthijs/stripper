@@ -87,7 +87,6 @@ set(CPACK_SOURCE_GENERATOR "TGZ")
 set(CPACK_SOURCE_IGNORE_FILES 	".DS_Store";
 								".svn";
 								"CMakeCache.txt$";
-								".*~";
 								"CMakeFiles";
 								"CPackConfig.cmake$";
 								"CPackSourceConfig.cmake$";
@@ -98,8 +97,7 @@ set(CPACK_SOURCE_IGNORE_FILES 	".DS_Store";
 								"cmake_install.cmake$";
 								"/examples";
 								"install_manifest.txt$";
-								"stripper.tmproj$";
-								"*.tar.gz$"
+								"stripper.tmproj$"
 								)
 
 set(CPACK_SOURCE_PACKAGE_FILE_NAME "${PROJECT_NAME}-${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}")
