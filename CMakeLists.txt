@@ -70,22 +70,36 @@ install(TARGETS ${PROJECT_NAME} DESTINATION bin)
 #
 # Packaging source tar.gz
 #
-set(CPACK_PACKAGE_NAME ${PROJECT_NAME})
+set(CPACK_PACKAGE_NAME ${PROJECT_NAME}) 
+set(CPACK_INCLUDE_TOPLEVEL_DIRECTORY "0")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Stripper - a tool to extract scaffolds from organics molecules")
 set(CPACK_PACKAGE_VENDOR "Silicos NV")
 set(CPACK_PACKAGE_VERSION_MAJOR @stripper_VERSION_MAJOR@)
 set(CPACK_PACKAGE_VERSION_MINOR @stripper_VERSION_MINOR@)
 set(CPACK_PACKAGE_VERSION_PATCH @stripper_VERSION_PATCH@)
 
-set(CPACK_RESOURCE_FILE_LICENSE "COPYING.txt")
-set(CPACK_RESOURCE_FILE_README  "README.txt")
-set(CPACK_RESOURCE_FILE_INSTALL "INSTALL.txt")
+set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/COPYING.txt")
+set(CPACK_RESOURCE_FILE_README  "${PROJECT_SOURCE_DIR}/README.txt")
+set(CPACK_RESOURCE_FILE_INSTALL "${PROJECT_SOURCE_DIR}/INSTALL.txt")
 
-set(CPACK_SOURCE_GENERATOR "TGZ")
-set(CPACK_SOURCE_IGNORE_FILES 
-	".svn;/CMakeFiles/;.DS_Store;/_CPack_Packages/;CMakeCache.txt;stripper.tmproj;Makefile;cmake_install.cmake;project.tmproj;
-	stripper-1.0.0-Darwin.dmg;stripper-1.0.0-Darwin.sh;stripper-1.0.0-Darwin.tar.gz"
-)
+set(CPACK_SOURCE_GENERATOR "TGZ")  
+
+#list(APPEND CPACK_SOURCE_IGNORE_FILES "\\\\.DS_Store")
+#list(APPEND CPACK_SOURCE_IGNORE_FILES "\\\\.svn")
+#list(APPEND CPACK_SOURCE_IGNORE_FILES "CMakeCache\\\\.txt$")
+#list(APPEND CPACK_SOURCE_IGNORE_FILES ".*~")
+#list(APPEND CPACK_SOURCE_IGNORE_FILES "/CMakeFiles")
+#list(APPEND CPACK_SOURCE_IGNORE_FILES "CPackConfig\\\\.cmake$")
+#list(APPEND CPACK_SOURCE_IGNORE_FILES "CPackSourceConfig\\\\.cmake$")
+#list(APPEND CPACK_SOURCE_IGNORE_FILES "CTestTestfile\\\\.cmake$")
+#list(APPEND CPACK_SOURCE_IGNORE_FILES "Makefile$")
+#list(APPEND CPACK_SOURCE_IGNORE_FILES "/Testing")
+#list(APPEND CPACK_SOURCE_IGNORE_FILES "/_CPack_Packages")
+#list(APPEND CPACK_SOURCE_IGNORE_FILES "cmake_install\\\\.cmake$")
+#list(APPEND CPACK_SOURCE_IGNORE_FILES "/examples")
+#list(APPEND CPACK_SOURCE_IGNORE_FILES "install_manifest\\\\.txt$")
+#list(APPEND CPACK_SOURCE_IGNORE_FILES "stripper\\\\.tmproj$")
+
 set(CPACK_SOURCE_PACKAGE_FILE_NAME "${PROJECT_NAME}-${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}")
 
 include(CPack)
@@ -95,4 +109,11 @@ include(CPack)
 # Testing
 #
 enable_testing()
+add_test (Test1 stripper)
+set_tests_properties (Test1 PROPERTIES PASS_REGULAR_EXPRESSION "ERROR: Command line option '--in' is missing.")
+add_test (Test2 stripper -h)
+set_tests_properties (Test2 PROPERTIES PASS_REGULAR_EXPRESSION "STRIPPER is a tool to extract predefined scaffolds from input molecules")
+add_test (Test3 stripper -v)
+set_tests_properties (Test3 PROPERTIES PASS_REGULAR_EXPRESSION "STRIPPER v1.0.0")
+
 include(${CMAKE_MODULE_PATH}/IncludeAllTests.cmake)
