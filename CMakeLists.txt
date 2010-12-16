@@ -71,7 +71,7 @@ install(TARGETS ${PROJECT_NAME} DESTINATION bin)
 # Packaging source tar.gz
 #
 set(CPACK_PACKAGE_NAME ${PROJECT_NAME}) 
-set(CPACK_INCLUDE_TOPLEVEL_DIRECTORY "0")
+set(CPACK_INCLUDE_TOPLEVEL_DIRECTORY "1")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Stripper - a tool to extract scaffolds from organics molecules")
 set(CPACK_PACKAGE_VENDOR "Silicos NV")
 set(CPACK_PACKAGE_VERSION_MAJOR @stripper_VERSION_MAJOR@)
@@ -88,17 +88,18 @@ set(CPACK_SOURCE_IGNORE_FILES 	".DS_Store";
 								".svn";
 								"CMakeCache.txt$";
 								".*~";
-								"/CMakeFiles";
+								"CMakeFiles";
 								"CPackConfig.cmake$";
 								"CPackSourceConfig.cmake$";
 								"CTestTestfile.cmake$";
 								"Makefile$";
-								"/Testing";
-								"/_CPack_Packages";
+								"Testing";
+								"_CPack_Packages";
 								"cmake_install.cmake$";
 								"/examples";
 								"install_manifest.txt$";
-								"stripper.tmproj$"
+								"stripper.tmproj$";
+								"*.tar.gz$"
 								)
 
 set(CPACK_SOURCE_PACKAGE_FILE_NAME "${PROJECT_NAME}-${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}")
