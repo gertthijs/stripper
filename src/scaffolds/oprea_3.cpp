@@ -90,7 +90,7 @@ Oprea_3::CalculateScaffold(const OpenBabel::OBMol& mol, Options* o)
       	else
 		if (atom->IsNitrogen() &&              // Nitrogen
           	atom->IsAromatic() &&              // Aromatic
-			atom->MatchesSMARTS("[NH0]") && 	   // No hydrogens
+			atom->MatchesSMARTS("[nH0]") && 	   // No hydrogens
          	(atom->GetHvyValence() <= 2) &&    // Maximal two non-H atoms connected
          	(atom->GetFormalCharge() <= 0))    // No + charge
       	{
