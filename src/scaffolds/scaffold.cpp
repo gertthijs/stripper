@@ -28,6 +28,7 @@ _smiles("-")
 {
 	_mol2can.SetOutFormat("can");
    	_mol2can.AddOption("n", OpenBabel::OBConversion::OUTOPTIONS);
+   	_mol2can.AddOption("i", OpenBabel::OBConversion::OUTOPTIONS);
 }
 
 

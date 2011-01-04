@@ -32,7 +32,8 @@ GNU General Public License for more details.
 #include <openbabel/mol.h>
 #include <openbabel/atom.h>
 #include <openbabel/bond.h>
-#include <openbabel/OBConversion.h>
+#include <openbabel/OBConversion.h>  
+#include <openbabel/stereo/stereo.h>
 
 
 
