@@ -146,6 +146,8 @@ Oprea_1::CalculateScaffold(const OpenBabel::OBMol& mol, Options* o)
    
    	if (!m.Empty())
 	{
+      	// Drop stereo information
+      	m.DeleteData(OpenBabel::OBGenericDataType::StereoData);
 		_smiles = _mol2can.WriteString(&m, true);
 	}
    	else

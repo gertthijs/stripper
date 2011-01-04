@@ -91,8 +91,8 @@ Calculator::Calculate(Options* o, const std::vector<Scaffold*>& scaffolds)
    	mol2can.SetOutFormat("can");
    	mol2can.AddOption("n", OpenBabel::OBConversion::OUTOPTIONS);
 		
-		// first set the stream (needed in case of a zip stream)
-		o->InputConverter()->SetInStream(o->InputStream());
+	// first set the stream (needed in case of a zip stream)
+    o->InputConverter()->SetInStream(o->InputStream());
    	while (o->InputConverter()->Read(&mol))
    	{
       	// Drop stereo information

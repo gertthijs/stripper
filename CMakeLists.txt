@@ -13,7 +13,7 @@ find_package(OpenBabel2 REQUIRED)
 #
 set (${PROJECT_NAME}_VERSION_MAJOR 1)
 set (${PROJECT_NAME}_VERSION_MINOR 0)
-set (${PROJECT_NAME}_VERSION_PATCH 1)
+set (${PROJECT_NAME}_VERSION_PATCH 2)
 configure_file ("${PROJECT_SOURCE_DIR}/stripperConfig.h.in" "${PROJECT_SOURCE_DIR}/include/stripperConfig.h")
  
   
@@ -114,6 +114,6 @@ set_tests_properties (Test1 PROPERTIES PASS_REGULAR_EXPRESSION "ERROR: Command l
 add_test (Test2 stripper -h)
 set_tests_properties (Test2 PROPERTIES PASS_REGULAR_EXPRESSION "STRIPPER is a tool to extract predefined scaffolds from input molecules")
 add_test (Test3 stripper -v)
-set_tests_properties (Test3 PROPERTIES PASS_REGULAR_EXPRESSION "STRIPPER v1.0.0")
+set_tests_properties (Test3 PROPERTIES PASS_REGULAR_EXPRESSION "STRIPPER v1.0.2")
 
 include(${CMAKE_MODULE_PATH}/IncludeAllTests.cmake)
