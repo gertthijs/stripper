@@ -588,16 +588,7 @@ Schuffenhauer::Rule_3(OpenBabel::OBMol& oldMol)
 			remainingMols.push_back(validMols[i]);
 		}
 	}
-/*	if (!remainingMols.empty() &&
-		(remainingMols.size() <= oldMolecules) &&
-		(remainingMols.size() <= (allrings.size() - _ringsToBeRetained)))
-	{
- 		return remainingMols[0];
-	}
-*/
- 	if ((remainingMols.size() == 1) &&
-		(remainingMols.size() <= oldMolecules) &&
-		(remainingMols.size() <= (allrings.size() - _ringsToBeRetained)))
+ 	if (remainingMols.size() == 1)
 	{
  		return remainingMols[0];
 	}
@@ -678,9 +669,7 @@ Schuffenhauer::Rule_4(OpenBabel::OBMol& oldMol)
 			remainingMols.push_back(validMols[i]);
 		}
 	}
-	if ((remainingMols.size() == 1) &&
-		(remainingMols.size() <= oldMolecules) &&
-		(remainingMols.size() <= (allrings.size() - _ringsToBeRetained)))
+	if (remainingMols.size() == 1)
 	{
 		return remainingMols[0];
     }
@@ -746,8 +735,7 @@ Schuffenhauer::Rule_6(OpenBabel::OBMol& oldMol)
       	}
    	}
 
- 	if (!validMols.empty() &&
-		(validMols.size() <= (allrings.size() - _ringsToBeRetained)))
+ 	if (validMols.size() == 1)
    	{
       	return validMols[0];
    	}
@@ -814,8 +802,7 @@ Schuffenhauer::Rule_7(OpenBabel::OBMol& oldMol)
       	}
    	}
 
-	if (!validMols.empty() &&
-		(validMols.size() <= (allrings.size() - _ringsToBeRetained)))
+	if (validMols.size() == 1)
    	{
       	return validMols[0];
    	}
@@ -888,9 +875,7 @@ Schuffenhauer::Rule_8(OpenBabel::OBMol& oldMol)
 		}
 	}
       
-	if ((remainingMols.size() == 1) &&
-		(remainingMols.size() <= oldMolecules) &&
-		(remainingMols.size() <= (allrings.size() - _ringsToBeRetained)))
+	if (remainingMols.size() == 1)
 	{
 		return remainingMols[0];
 	}
@@ -958,9 +943,7 @@ Schuffenhauer::Rule_10(OpenBabel::OBMol& oldMol)
 		}
 	}
       
-	if ((remainingMols.size() == 1) &&
-		(remainingMols.size() <= oldMolecules) &&
-		(remainingMols.size() <= (allrings.size() - _ringsToBeRetained)))
+	if (remainingMols.size() == 1)
 	{
 		return remainingMols[0];
 	}
@@ -1027,8 +1010,7 @@ Schuffenhauer::Rule_11(OpenBabel::OBMol& oldMol)
          	}
       	}
 
-      	if (!validMols.empty() && 
-			(validMols.size() <= (allrings.size() - _ringsToBeRetained)))
+      	if (validMols.size() == 1)
       	{
          	return validMols[0];
       	}
@@ -1068,8 +1050,7 @@ Schuffenhauer::Rule_12(OpenBabel::OBMol& oldMol)
       	}
    	}
 
-   	if (!validMols.empty() && 
-		(validMols.size() <= (allrings.size() - _ringsToBeRetained)))
+   	if (validMols.size() == 1)
    	{
       	return validMols[0];
    	}
@@ -1133,8 +1114,7 @@ Schuffenhauer::Rule_13(OpenBabel::OBMol& oldMol)
 		}
 	}
 
-   	if (!remainingMols.empty() && 
-		(remainingMols.size() <= (allrings.size() - _ringsToBeRetained)))
+   	if (remainingMols.size() == 1)
    	{
       	return remainingMols[0];
    	}
