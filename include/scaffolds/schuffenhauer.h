@@ -33,7 +33,7 @@ GNU General Public License for more details.
 #include <openbabel/atom.h>
 #include <openbabel/bond.h>
 #include <openbabel/ring.h>
-#include <openbabel/OBConversion.h>
+#include <openbabel/obconversion.h>
 
 
 
