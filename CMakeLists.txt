@@ -114,6 +114,6 @@ set_tests_properties (Test1 PROPERTIES PASS_REGULAR_EXPRESSION "ERROR: Command l
 add_test (Test2 stripper -h)
 set_tests_properties (Test2 PROPERTIES PASS_REGULAR_EXPRESSION "STRIPPER is a tool to extract predefined scaffolds from input molecules")
 add_test (Test3 stripper -v)
-set_tests_properties (Test3 PROPERTIES PASS_REGULAR_EXPRESSION "STRIPPER v1.0.2")
+set_tests_properties (Test3 PROPERTIES PASS_REGULAR_EXPRESSION "STRIPPER v1.0.3")
 
 include(${CMAKE_MODULE_PATH}/IncludeAllTests.cmake)
