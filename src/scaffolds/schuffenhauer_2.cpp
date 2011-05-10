@@ -26,7 +26,7 @@ GNU General Public License for more details.
 Schuffenhauer_2::Schuffenhauer_2(void):
 Scaffold()
 {
-	_name = "SCHUFFENHAUER_2";
+	_name = "SCHUFFENHAUER-ERTL_2";
 	_ringsToBeRetained = 2;
 }
 

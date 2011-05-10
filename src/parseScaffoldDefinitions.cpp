@@ -133,7 +133,7 @@ parseScaffoldDefinitions(Options* o)
          	continue;
       	}
       	else
-		if (parameter == "SCHUFFENHAUER_1")
+		if (parameter == "SCHUFFENHAUER-ERTL_1")
       	{
          	definitions.push_back(new Schuffenhauer_1());
  			std::cerr << "-> ";
@@ -141,7 +141,7 @@ parseScaffoldDefinitions(Options* o)
         	continue;
       	}
       	else
-		if (parameter == "SCHUFFENHAUER_2")
+		if (parameter == "SCHUFFENHAUER-ERTL_2")
       	{
          	definitions.push_back(new Schuffenhauer_2());
 			std::cerr << "-> ";
@@ -149,7 +149,7 @@ parseScaffoldDefinitions(Options* o)
          	continue;
       	}
       	else
-		if (parameter == "SCHUFFENHAUER_3")
+		if (parameter == "SCHUFFENHAUER-ERTL_3")
       	{
          	definitions.push_back(new Schuffenhauer_3());
 			std::cerr << "-> ";
@@ -157,7 +157,7 @@ parseScaffoldDefinitions(Options* o)
          	continue;
       	}
       	else
-		if (parameter == "SCHUFFENHAUER_4")
+		if (parameter == "SCHUFFENHAUER-ERTL_4")
       	{
         	definitions.push_back(new Schuffenhauer_4());
 			std::cerr << "-> ";
@@ -165,7 +165,7 @@ parseScaffoldDefinitions(Options* o)
          	continue;
       	}
       	else
-		if (parameter == "SCHUFFENHAUER_5")
+		if (parameter == "SCHUFFENHAUER-ERTL_5")
       	{
          	definitions.push_back(new Schuffenhauer_5());
 			std::cerr << "-> ";
