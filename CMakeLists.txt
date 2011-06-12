@@ -13,7 +13,7 @@ find_package(OpenBabel2 REQUIRED)
 #
 set (${PROJECT_NAME}_VERSION_MAJOR 1)
 set (${PROJECT_NAME}_VERSION_MINOR 0)
-set (${PROJECT_NAME}_VERSION_PATCH 5)
+set (${PROJECT_NAME}_VERSION_PATCH 6)
 configure_file ("${PROJECT_SOURCE_DIR}/stripperConfig.h.in" "${PROJECT_SOURCE_DIR}/include/stripperConfig.h")
  
   
